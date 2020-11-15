@@ -1,0 +1,11 @@
+#!/bin/bash
+DATETIME=`date`
+yarn build
+mkdir -p docs
+rm -rf docs/*
+cp -R dist/pwa/* docs/
+git add docs/*
+git commit -m "UPDATE github page at ${DATETIME}"
+git push origin master
+git push comdesk master
+exit 0
