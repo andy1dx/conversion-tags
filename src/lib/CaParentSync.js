@@ -18,7 +18,7 @@ export default class CaParentSync {
 
   init () {
     this.window.onload = () => {
-      var container = this.window.document.getElementById('q-app')
+      var container = this.window.document.getElementById('ca_container')
       var params = {
         type: this.SEND_EVENT.HEIGHT_CHANGE,
         height: container.offsetHeight
@@ -29,7 +29,8 @@ export default class CaParentSync {
 
   pageLoadChange () {
     setTimeout(() => {
-      var container = this.window.document.getElementById('q-app')
+      var container = this.window.document.getElementById('ca_container')
+      container.style.removeProperty('min-height')
       var params = {
         type: this.SEND_EVENT.HEIGHT_CHANGE,
         height: container.offsetHeight

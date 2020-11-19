@@ -32,6 +32,7 @@ class ConversionTag {
     iframe.setAttribute('src', this.iframeSource);
     iframe.setAttribute('id', 'the_iframe');
     iframe.style.width = '100%';
+    iframe.style.height = '90px';
     iframe.style.border = 'none';
     this.iframe = iframe
 

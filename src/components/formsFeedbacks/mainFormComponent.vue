@@ -48,7 +48,6 @@ export default {
     },
     sendform () {
       this.$refs.formFeedback.validate().then(success => {
-        console.log(success)
         if (success) {
           const params = {
             key: this.managerKey,

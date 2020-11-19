@@ -1,7 +1,5 @@
 <template>
-  <div class="__ca_form_finish-page-component text-center text-h5">
-    {{message}}
-  </div>
+  <div class="__ca_form_finish-page-component text-center text-h5">{{message}}</div>
 </template>
 <script>
 

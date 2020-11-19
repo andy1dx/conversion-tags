@@ -56,9 +56,9 @@ export default {
       const { result, codes } = newResponse
       if (!result || codes.length > 0) {
         this.loadPage = LOAD_PAGE.FAILED_PAGE
+        this.$casync.pageLoadChange()
       } else {
         const { managerKey } = newResponse
-        console.log(newResponse)
         const params = {
           managerKey,
           formKey: this.$casync.getFormKey(),
