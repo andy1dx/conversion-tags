@@ -1,12 +1,11 @@
 <template>
-  <div class="__ca_form_finish-page-component">
+  <div class="__ca_form_finish-page-component text-center text-h5">
     {{message}}
   </div>
 </template>
 <script>
 
 export default {
-  name: 'finish-page-component',
   data () {
     return {
       contentValue: ''
@@ -19,4 +18,7 @@ export default {
 </script>
 
 <style scoped>
+.__ca_form_finish-page-component {
+  white-space: pre-line;
+}
 </style>

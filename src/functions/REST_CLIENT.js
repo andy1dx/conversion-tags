@@ -6,7 +6,7 @@ const TYPE = {
 }
 const URI = {
   MANAGERS: {
-    GET_KEY_BY_CODE: 'managers/get_key_by_code'
+    GET_KEY_BY_TOKEN: 'managers/get_key_by_token'
   },
   SECURITY: {
     GET_CURRENT_KEY: 'security/get_current_key'
@@ -46,9 +46,9 @@ const REST_CLIENT = {
     const conditions = (constantKey) ? { constant_key: constantKey } : {}
     return REST_CLIENT.post(URI.SECURITY.GET_CURRENT_KEY, conditions)
   },
-  managersGetKey: async (code) => {
-    const conditions = (code) ? { code } : {}
-    return REST_CLIENT.postByCurrentKey(URI.MANAGERS.GET_KEY_BY_CODE, conditions)
+  managersGetKey: async (token) => {
+    const conditions = (token) ? { token } : {}
+    return REST_CLIENT.postByCurrentKey(URI.MANAGERS.GET_KEY_BY_TOKEN, conditions)
   },
   postByCurrentKey: async (uri, params) => {
     return REST_CLIENT.getCurrentKey(COMMON_CONSTS.CONSTANT_KEY).then(data => {
@@ -56,6 +56,6 @@ const REST_CLIENT = {
       return REST_CLIENT.post(uri, params)
     })
   },
-  getUrl: uri => `https://${COMMON_CONSTS.API_HOST}/${COMMON_CONSTS.API_DIR_NAME}/${uri}`
+  getUrl: uri => `http://${COMMON_CONSTS.API_HOST}/${COMMON_CONSTS.API_DIR_NAME}/${uri}`
 }
 export default REST_CLIENT

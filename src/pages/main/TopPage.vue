@@ -1,14 +1,15 @@
 <template>
-  <q-page padding>
+  <q-page padding id="ca_container">
     <firstPageComponent v-if="loadPage === LOAD_PAGE.FIRST_PAGE" />
     <mainFormComponent v-if="loadPage === LOAD_PAGE.FORM_PAGE" />
-    <messagePageComponent :message="failedMessage" v-if="loadPage === LOAD_PAGE.FAILED_PAGE" />
-    <messagePageComponent :message="finishPage" v-if="loadPage === LOAD_PAGE.FINISH_PAGE" />
+    <messageComponent :message="failedMessage" v-if="loadPage === LOAD_PAGE.FAILED_PAGE" />
+    <feedbackFinishMessage :message="finishPage" v-if="loadPage === LOAD_PAGE.FINISH_PAGE" />
   </q-page>
 </template>
 <script>
 import mainFormComponent from '../../components/formsFeedbacks/mainFormComponent.vue'
-import messagePageComponent from '../../components/formsFeedbacks/messagePageComponent.vue'
+import feedbackFinishMessage from '../../components/formsFeedbacks/feedbackFinishMessage.vue'
+import messageComponent from '../../components/common/messageComponent.vue'
 import firstPageComponent from '../../components/formsFeedbacks/firstPageComponent.vue'
 import LOAD_PAGE from '../../enums/LOAD_PAGE.js'
 import MESSAGES from '../../enums/MESSAGES.js'
@@ -24,13 +25,14 @@ export default {
   },
   components: {
     mainFormComponent,
-    messagePageComponent,
+    messageComponent,
+    feedbackFinishMessage,
     firstPageComponent
   },
   methods: {
     onInitChange (e) {
-      const { managerCode } = e.detail
-      this.$store.dispatch('authState/auth', { managerCode })
+      const { token } = e.detail
+      this.$store.dispatch('authState/auth', { token })
     }
   },
   mounted () {
@@ -56,6 +58,7 @@ export default {
         this.loadPage = LOAD_PAGE.FAILED_PAGE
       } else {
         const { managerKey } = newResponse
+        console.log(newResponse)
         const params = {
           managerKey,
           formKey: this.$casync.getFormKey(),
@@ -75,6 +78,7 @@ export default {
         } else {
           this.loadPage = LOAD_PAGE.FORM_PAGE
         }
+        this.$casync.pageLoadChange()
       }
     }
   }
