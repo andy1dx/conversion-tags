@@ -1,5 +1,5 @@
 <template>
-  <div class="ca_form_field-radiobox">
+  <div class="ca_form_field-radiobox q-mb-md">
     <div class="ca_form_field-radiobox-label">
       {{ field.label }} :
     </div>
@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+import VALIDATION_RULE from '../../../enums/VALIDATION_RULE.js'
 
 export default {
   name: 'radiobox-radiobox',
@@ -29,7 +30,7 @@ export default {
     rules () {
       const rules = []
       if (this.field.is_required === true) {
-        rules.push(val => !!val || '* Required')
+        rules.push(val => VALIDATION_RULE.REQUIRED(val) || this.$i18n.t('required_message'))
       }
       return rules
     }
@@ -41,6 +42,6 @@ export default {
 
 <style scoped>
 .ca_form_field-radiobox-label {
-  padding: 10px 0;
+  padding: 5px 0;
 }
 </style>

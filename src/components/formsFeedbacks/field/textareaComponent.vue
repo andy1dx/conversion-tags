@@ -3,10 +3,11 @@
     <div class="ca_form_field-textarea-label">
       {{ field.label }} :
     </div>
-    <q-input v-model="fieldsValue" :rules="rules" type="textarea" outlined dense />
+    <q-input square v-model="fieldsValue" :rules="rules" type="textarea" outlined dense />
   </div>
 </template>
 <script>
+import VALIDATION_RULE from '../../../enums/VALIDATION_RULE.js'
 
 export default {
   name: 'field-textarea',
@@ -27,13 +28,13 @@ export default {
     rules () {
       const rules = []
       if (this.field.is_required === true) {
-        rules.push(val => !!val || '* Required')
+        rules.push(val => VALIDATION_RULE.REQUIRED(val) || this.$i18n.t('required_message'))
       }
       if (this.field.max > 0) {
-        rules.push(val => val.length < this.field.max || 'Please use maximum ' + this.field.max + ' character')
+        rules.push(val => VALIDATION_RULE.MAX_CHARACTER(val, this.field.max) || this.$i18n.t('maximum_message').replace('{value}', this.field.max))
       }
       if (this.field.min > 0) {
-        rules.push(val => val.length > this.field.min || 'Please use minimum ' + this.field.min + ' character')
+        rules.push(val => VALIDATION_RULE.MIN_CHARACTER(val, this.field.min) || this.$i18n.t('minimum_message').replace('{value}', this.field.min))
       }
       return rules
     }
@@ -45,6 +46,6 @@ export default {
 
 <style scoped>
 .ca_form_field-textarea-label {
-  padding: 10px 0;
+  padding: 5px 0;
 }
 </style>

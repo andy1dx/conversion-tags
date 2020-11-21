@@ -6,7 +6,6 @@ export const getLoadForm = ({ commit }, params) => {
   })
 }
 export const submitFeedbackForm = ({ commit }, params) => {
-  console.log(params)
   REST_CLIENT.formFeedbackSubmitPage(params.key, params.formFeedbackKey, params.fields).then(data => {
     commit('setSubmitResponse', data)
   })

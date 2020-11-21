@@ -8,7 +8,7 @@ export default class CaParentSync {
     this.Vue = {}
     this.window = window
     this.managerKey = ''
-    this.managerCode = ''
+    this.token = ''
     this.url = ''
     this.formKey = ''
     this.parameters = {}
@@ -17,14 +17,26 @@ export default class CaParentSync {
   }
 
   init () {
-    this.window.document.addEventListener('resize', this.onresize.bind(this))
-    this.window.document.body.onresize = function (event) {
-      console.log(event)
+    this.window.onload = () => {
+      var container = this.window.document.getElementById('ca_container')
+      var params = {
+        type: this.SEND_EVENT.HEIGHT_CHANGE,
+        height: container.offsetHeight
+      }
+      window.parent.postMessage(params, '*')
     }
   }
 
-  onresize (e) {
-    console.log(e)
+  pageLoadChange () {
+    setTimeout(() => {
+      var container = this.window.document.getElementById('ca_container')
+      container.style.removeProperty('min-height')
+      var params = {
+        type: this.SEND_EVENT.HEIGHT_CHANGE,
+        height: container.offsetHeight
+      }
+      window.parent.postMessage(params, '*')
+    }, 10)
   }
 
   dispatch (EVENT_TYPE, data) {
@@ -62,8 +74,8 @@ export default class CaParentSync {
   setWindow (window) { this.window = window }
   setManagerKey (managerKey) { this.managerKey = managerKey }
   getManagerKey () { return this.managerKey }
-  setManagerCode (managerCode) { this.managerCode = managerCode }
-  getManagerCode () { return this.managerCode }
+  setToken (token) { this.token = token }
+  getToken () { return this.token }
   setUrl (url) { this.url = url }
   getUrl () { return this.url }
   setFormKey (formKey) { this.formKey = formKey }
@@ -79,13 +91,13 @@ export default class CaParentSync {
   parentEventRunInit (data) {
     if (data) {
       this.setManagerKey(data.managerKey)
-      this.setManagerCode(data.managerCode)
+      this.setToken(data.token)
       this.setUrl(data.url)
       this.setFormKey(data.formKey)
       this.setParametersFromUrl(data.parameters)
     }
     this.dispatch(this.EVENT_TYPE.ON_INIT_CHANGE, {
-      managerCode: data.managerCode,
+      token: data.token,
       url: data.url,
       formKey: data.formKey,
       parameters: this.parameters
@@ -99,4 +111,8 @@ CaParentSync.prototype.PARENT_EVENT = {
 
 CaParentSync.prototype.EVENT_TYPE = {
   ON_INIT_CHANGE: 'ON_INIT_CHANGE'
+}
+
+CaParentSync.prototype.SEND_EVENT = {
+  HEIGHT_CHANGE: 'HEIGHT_CHANGE'
 }

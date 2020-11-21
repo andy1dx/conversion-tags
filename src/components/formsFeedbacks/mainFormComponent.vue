@@ -1,7 +1,7 @@
 <template>
   <div class="__ca_form_main-fields-component">
     <q-form ref="formFeedback">
-      <div
+      <div class="q-mt-sm"
         v-for="(field, index) in fields"
         :key="field.label" >
           <mainFieldsComponent :field="field" :index="index"/>
@@ -9,7 +9,7 @@
       <div class="text-negative text-body1 q-pa-sm" v-if="submitMessage">
         {{submitMessage}}
       </div>
-      <q-btn color="primary" class="full-width" label="Standard" @click="sendform"/>
+      <q-btn color="primary" class="full-width q-mt-sm" :label="$t('submit')" @click="sendform"/>
     </q-form>
   </div>
 </template>
@@ -48,7 +48,6 @@ export default {
     },
     sendform () {
       this.$refs.formFeedback.validate().then(success => {
-        console.log(success)
         if (success) {
           const params = {
             key: this.managerKey,
@@ -92,6 +91,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

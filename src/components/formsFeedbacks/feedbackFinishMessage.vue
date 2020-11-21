@@ -1,12 +1,10 @@
 <template>
-  <div class="__ca_form_finish-page-component">
-    {{message}}
+  <div class="__ca_form_finish-page-component" v-html="message">
   </div>
 </template>
 <script>
 
 export default {
-  name: 'finish-page-component',
   data () {
     return {
       contentValue: ''
@@ -17,6 +15,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

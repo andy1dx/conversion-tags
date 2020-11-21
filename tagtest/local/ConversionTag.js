@@ -1,19 +1,15 @@
 class ConversionTag {
   constructor (window) {
-    this.username = ''
     this.window = window
-    this.managerKey = ''
-    this.managerCode = ''
+    this.token = ''
     this.url = ''
     this.formKey = ''
     this.parameters = {}
     this.iframe = {}
     this.iframeSource = 'http://localhost:8084/'
   }
-  setManagerKey (managerKey) { this.managerKey = managerKey }
-  getManagerKey () { return this.managerKey }
-  setManagerCode (managerCode) { this.managerCode = managerCode }
-  getManagerCode () { return this.managerCode }
+  setToken (token) { this.token = token }
+  getToken () { return this.token }
   setUrl (url) { this.url = url }
   getUrl () { return this.url }
   setFormKey (formKey) { this.formKey = formKey }
@@ -23,14 +19,21 @@ class ConversionTag {
     this.window.onload = () => {
       this.sendEventToChild();
     };
+    this.bindEvent(window, 'message', function (e) {
+      const { data } = e
+      var iframe = this.window.document.getElementById('the_iframe');
+      if (data.type === 'HEIGHT_CHANGE') {
+        iframe.style.height = data.height + 'px';
+      }
+    });
   }
   setIframe() {
     var iframe = this.window.document.createElement('iframe');
     iframe.setAttribute('src', this.iframeSource);
     iframe.setAttribute('id', 'the_iframe');
     iframe.style.width = '100%';
+    iframe.style.height = '90px';
     iframe.style.border = 'none';
-    iframe.style.height = '500px';
     this.iframe = iframe
 
     var results = this.window.document.getElementById('__ca_conversion_analytics');
@@ -42,7 +45,7 @@ class ConversionTag {
     var params = {
       type: 'CA_PARENT_EVENT_RUN_INIT',
       data: {
-        managerCode: this.managerCode,
+        token: this.token,
         url: this.window.location.href,
         formKey: this.formKey,
         parameters: this.window.location.search.substring(1)

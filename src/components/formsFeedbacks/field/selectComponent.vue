@@ -1,12 +1,13 @@
 <template>
-  <div class="ca_form_field-select">
+  <div class="ca_form_field-select q-mb-md">
     <div class="ca_form_field-select-label">
       {{ field.label }} :
     </div>
-    <q-select v-model="fieldsValue" :options="field.options" outlined dense />
+    <q-select square v-model="fieldsValue" :options="field.options" outlined dense />
   </div>
 </template>
 <script>
+import VALIDATION_RULE from '../../../enums/VALIDATION_RULE.js'
 
 export default {
   name: 'select-select',
@@ -27,7 +28,7 @@ export default {
     rules () {
       const rules = []
       if (this.field.is_required === true) {
-        rules.push(val => !!val || '* Required')
+        rules.push(val => VALIDATION_RULE.REQUIRED(val) || this.$i18n.t('required_message'))
       }
       return rules
     }
@@ -39,6 +40,6 @@ export default {
 
 <style scoped>
 .ca_form_field-select-label {
-  padding: 10px 0;
+  padding: 5px 0;
 }
 </style>

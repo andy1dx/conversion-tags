@@ -4,6 +4,7 @@ export default function () {
     url: getByUrl(URL.USER.TOP.url),
     result: false,
     codes: [],
-    managerKey: ''
+    managerKey: '',
+    managerCode: ''
   }
 }
