@@ -1,6 +1,6 @@
 <template>
   <div class="__ca_form_firstload-component text-center">
-     <q-spinner-facebook color="teal" size="4em" />
+     <q-spinner-facebook color="primary" size="4em" />
   </div>
 </template>
 <script>

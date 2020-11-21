@@ -56,6 +56,6 @@ const REST_CLIENT = {
       return REST_CLIENT.post(uri, params)
     })
   },
-  getUrl: uri => `http://${COMMON_CONSTS.API_HOST}/${COMMON_CONSTS.API_DIR_NAME}/${uri}`
+  getUrl: uri => `${COMMON_CONSTS.API_HOST}/${COMMON_CONSTS.API_DIR_NAME}/${uri}`
 }
 export default REST_CLIENT
