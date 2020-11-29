@@ -32,17 +32,25 @@ export default {
           fields_key: field.key,
           name: field.name,
           label: field.label,
-          value: this.setValue(field.value)
+          value: this.setValue(field.value, field.is_phone, field.column_total)
         })
       })
       return rtnFields
     },
-    setValue (value) {
+    setValue (value, isPhone, columnTotal) {
       let rtn = ''
-      if (Array.isArray(value)) {
-        rtn = JSON.stringify(value)
+      if (columnTotal > 1) {
+        if (isPhone) {
+          rtn = value.join('-')
+        } else {
+          rtn = value.join(' ')
+        }
       } else {
-        rtn = value
+        if (Array.isArray(value)) {
+          rtn = JSON.stringify(value)
+        } else {
+          rtn = value
+        }
       }
       return rtn
     },

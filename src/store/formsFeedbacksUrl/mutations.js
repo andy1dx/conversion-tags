@@ -16,6 +16,16 @@ const setValueType = (field) => {
   ) {
     rtn = []
   }
+  if (
+    field.type === FIELD_CATEGORIES_TYPE.TEXTBOX && field.column_total === 2
+  ) {
+    rtn = ['', '']
+  }
+  if (
+    field.type === FIELD_CATEGORIES_TYPE.TEXTBOX && field.column_total === 3
+  ) {
+    rtn = ['', '', '']
+  }
   return rtn
 }
 export const setLoadResponse = (state, data) => {
@@ -42,5 +52,11 @@ export const setFieldsValue = (state, data) => {
   const fields = state.fields
   const { value, index } = data
   fields[index].value = value
+  state.fields = COMMON_FUNC.setArrayWithoutReference(fields)
+}
+export const setFieldsValueColumn = (state, data) => {
+  const fields = state.fields
+  const { value, index, arr } = data
+  fields[index].value[arr] = value
   state.fields = COMMON_FUNC.setArrayWithoutReference(fields)
 }

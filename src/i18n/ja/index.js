@@ -7,5 +7,6 @@ export default {
   minimum_message: '{value}文字以上にしてください',
   maximum_value_message: '最大値は{value}です',
   minimum_value_message: '最大値は{value}です',
-  must_be_email: 'Email形式で入力してください'
+  must_be_email: 'Email形式で入力してください',
+  must_be_phone: '電話番号形式で入力してください'
 }
