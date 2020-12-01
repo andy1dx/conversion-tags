@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import authState from './authState'
+import formsUrl from './formsUrl'
 import formsFeedbacksUrl from './formsFeedbacksUrl'
 
 Vue.use(Vuex)
@@ -18,6 +19,7 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       authState,
+      formsUrl,
       formsFeedbacksUrl
     },
 

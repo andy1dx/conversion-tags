@@ -3,6 +3,7 @@ class ConversionTag {
     this.window = window
     this.token = ''
     this.url = ''
+    this.url_referral = ''
     this.formKey = ''
     this.parameters = {}
     this.iframe = {}
@@ -47,6 +48,7 @@ class ConversionTag {
       data: {
         token: this.token,
         url: this.window.location.href,
+        url_referral: this.window.document.referrer,
         formKey: this.formKey,
         parameters: this.window.location.search.substring(1)
       }

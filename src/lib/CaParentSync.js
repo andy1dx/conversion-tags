@@ -10,8 +10,10 @@ export default class CaParentSync {
     this.managerKey = ''
     this.token = ''
     this.url = ''
+    this.urlReferral = ''
     this.formKey = ''
     this.parameters = {}
+    this.parametersReferral = {}
     this.setBindEventParent()
     this.init()
   }
@@ -78,6 +80,8 @@ export default class CaParentSync {
   getToken () { return this.token }
   setUrl (url) { this.url = url }
   getUrl () { return this.url }
+  setUrlReferral (urlReferral) { this.urlReferral = urlReferral }
+  getUrlReferral () { return this.urlReferral }
   setFormKey (formKey) { this.formKey = formKey }
   getFormKey () { return this.formKey }
   getParameters () { return this.parameters }
@@ -88,17 +92,36 @@ export default class CaParentSync {
     }
   }
 
+  getParametersReferral () { return this.parametersReferral }
+  setParametersReferralFromUrl (urlReferral) {
+    let parameters = ''
+    if (urlReferral) {
+      if (urlReferral.includes('?')) {
+        var res = urlReferral.split('?')
+        parameters = res[1]
+        if (parameters && parameters.length > 0) {
+          var onjParameters = JSON.parse('{"' + parameters.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === '' ? value : decodeURIComponent(value) })
+          this.parametersReferral = onjParameters
+        }
+      }
+    }
+  }
+
   parentEventRunInit (data) {
+    console.log(data)
     if (data) {
       this.setManagerKey(data.managerKey)
       this.setToken(data.token)
       this.setUrl(data.url)
+      this.setUrlReferral(data.url_referral)
       this.setFormKey(data.formKey)
       this.setParametersFromUrl(data.parameters)
+      this.setParametersReferralFromUrl(data.url_referral)
     }
     this.dispatch(this.EVENT_TYPE.ON_INIT_CHANGE, {
       token: data.token,
       url: data.url,
+      urlReferral: data.url_referral,
       formKey: data.formKey,
       parameters: this.parameters
     })
