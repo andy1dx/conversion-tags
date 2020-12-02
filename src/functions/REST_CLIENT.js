@@ -11,6 +11,9 @@ const URI = {
   SECURITY: {
     GET_CURRENT_KEY: 'security/get_current_key'
   },
+  FORM: {
+    GET_ONE: 'forms/get_one'
+  },
   FORMS_FEEDBACKS: {
     LOAD_FORM: 'forms_feedbacks/load_form',
     SUBMIT_FORM: 'forms_feedbacks/submit_form'
@@ -34,8 +37,12 @@ const REST_CLIENT = {
   },
   get: async (uri, params) => REST_CLIENT.reqest(uri, params, TYPE.GET),
   post: async (uri, params) => REST_CLIENT.reqest(uri, params, TYPE.POST),
-  formFeedbackLoadPage: async (key, formKey, url, parameters) => {
-    const conditions = (key && formKey && url) ? { key, form_key: formKey, url, parameters } : {}
+  formsGetone: async (key, formKey) => {
+    const conditions = (key && formKey) ? { key, form_key: formKey } : {}
+    return REST_CLIENT.post(URI.FORM.GET_ONE, conditions)
+  },
+  formFeedbackLoadPage: async (key, formKey, url, urlReferral, mode, parameters) => {
+    const conditions = (key && formKey && url && mode) ? { key, form_key: formKey, url, url_referral: urlReferral, mode, parameters } : {}
     return REST_CLIENT.post(URI.FORMS_FEEDBACKS.LOAD_FORM, conditions)
   },
   formFeedbackSubmitPage: async (key, formFeedbackKey, fields) => {

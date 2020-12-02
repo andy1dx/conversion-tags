@@ -1,7 +1,7 @@
 import REST_CLIENT from '../../functions/REST_CLIENT.js'
 
 export const getLoadForm = ({ commit }, params) => {
-  REST_CLIENT.formFeedbackLoadPage(params.managerKey, params.formKey, params.url, params.parameters).then(data => {
+  REST_CLIENT.formFeedbackLoadPage(params.managerKey, params.formKey, params.url, params.urlReferral, params.mode, params.parameters).then(data => {
     commit('setLoadResponse', data)
   })
 }
